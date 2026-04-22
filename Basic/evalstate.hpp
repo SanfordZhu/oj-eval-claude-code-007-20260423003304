@@ -75,9 +75,22 @@ public:
 
     void Clear();
 
+/*
+ * Methods for program execution control
+ * -------------------------------------
+ * These methods manage the current line during program execution.
+ */
+
+    void setCurrentLine(int line);
+    int getCurrentLine();
+    bool hasCurrentLine();
+    void clearCurrentLine();
+
 private:
 
     std::map<std::string, int> symbolTable;
+    int currentLine;
+    bool hasLine;
 
 };
 

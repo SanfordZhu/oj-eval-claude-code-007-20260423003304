@@ -85,4 +85,155 @@ public:
  * specify its own destructor method to free that memory.
  */
 
+/*
+ * Class: RemStatement
+ * -------------------
+ * This subclass represents a REM statement.
+ */
+
+class RemStatement : public Statement {
+public:
+    RemStatement(const std::string& comment);
+    virtual void execute(EvalState &state, Program &program);
+private:
+    std::string comment;
+};
+
+/*
+ * Class: LetStatement
+ * -------------------
+ * This subclass represents a LET statement.
+ */
+
+class LetStatement : public Statement {
+public:
+    LetStatement(const std::string& var, Expression *exp);
+    virtual ~LetStatement();
+    virtual void execute(EvalState &state, Program &program);
+private:
+    std::string var;
+    Expression *exp;
+};
+
+/*
+ * Class: PrintStatement
+ * ---------------------
+ * This subclass represents a PRINT statement.
+ */
+
+class PrintStatement : public Statement {
+public:
+    PrintStatement(Expression *exp);
+    virtual ~PrintStatement();
+    virtual void execute(EvalState &state, Program &program);
+private:
+    Expression *exp;
+};
+
+/*
+ * Class: InputStatement
+ * ---------------------
+ * This subclass represents an INPUT statement.
+ */
+
+class InputStatement : public Statement {
+public:
+    InputStatement(const std::string& var);
+    virtual void execute(EvalState &state, Program &program);
+private:
+    std::string var;
+};
+
+/*
+ * Class: EndStatement
+ * -------------------
+ * This subclass represents an END statement.
+ */
+
+class EndStatement : public Statement {
+public:
+    EndStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+/*
+ * Class: GotoStatement
+ * --------------------
+ * This subclass represents a GOTO statement.
+ */
+
+class GotoStatement : public Statement {
+public:
+    GotoStatement(int lineNumber);
+    virtual void execute(EvalState &state, Program &program);
+private:
+    int lineNumber;
+};
+
+/*
+ * Class: IfStatement
+ * ------------------
+ * This subclass represents an IF statement.
+ */
+
+class IfStatement : public Statement {
+public:
+    IfStatement(Expression *lhs, const std::string& op, Expression *rhs, int targetLine);
+    virtual ~IfStatement();
+    virtual void execute(EvalState &state, Program &program);
+private:
+    Expression *lhs;
+    std::string op;
+    Expression *rhs;
+    int targetLine;
+};
+
+/*
+ * Class: RunStatement
+ * -------------------
+ * This subclass represents a RUN statement.
+ */
+
+class RunStatement : public Statement {
+public:
+    RunStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+/*
+ * Class: ListStatement
+ * --------------------
+ * This subclass represents a LIST statement.
+ */
+
+class ListStatement : public Statement {
+public:
+    ListStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+/*
+ * Class: ClearStatement
+ * ---------------------
+ * This subclass represents a CLEAR statement.
+ */
+
+class ClearStatement : public Statement {
+public:
+    ClearStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
+/*
+ * Class: QuitStatement
+ * --------------------
+ * This subclass represents a QUIT statement.
+ */
+
+class QuitStatement : public Statement {
+public:
+    QuitStatement();
+    virtual void execute(EvalState &state, Program &program);
+};
+
 #endif

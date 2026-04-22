@@ -15,7 +15,8 @@
 /* Implementation of the EvalState class */
 
 EvalState::EvalState() {
-    /* Empty */
+    currentLine = -1;
+    hasLine = false;
 }
 
 EvalState::~EvalState() {
@@ -38,4 +39,23 @@ bool EvalState::isDefined(std::string var) {
 
 void EvalState::Clear() {
     symbolTable.clear();
+    currentLine = -1;
+    hasLine = false;
+}
+
+void EvalState::setCurrentLine(int line) {
+    currentLine = line;
+    hasLine = true;
+}
+
+int EvalState::getCurrentLine() {
+    return currentLine;
+}
+
+bool EvalState::hasCurrentLine() {
+    return hasLine;
+}
+
+void EvalState::clearCurrentLine() {
+    hasLine = false;
 }

@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <map>
 #include <unordered_map>
 #include "statement.hpp"
 
@@ -145,8 +146,12 @@ public:
 
 private:
 
-    // Fill this in with whatever types and instance variables you need
-    //todo
+    // Map from line number to source line and statement
+    std::map<int, std::string> sourceLines;
+    std::map<int, Statement*> parsedStatements;
+
+    // Keep track of line numbers in sorted order
+    std::set<int> lineNumbers;
 };
 
 #endif
