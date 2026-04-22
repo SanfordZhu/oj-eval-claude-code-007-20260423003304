@@ -176,6 +176,12 @@ void RunStatement::execute(EvalState &state, Program &program) {
             program.setParsedStatement(currentLine, stmt);
         }
 
+        // Store the next line before executing (in case of GOTO or modifications)
+        int nextLine = -1;
+        if (!state.hasCurrentLine()) {
+            nextLine = program.getNextLineNumber(currentLine);
+        }
+
         // Execute the statement
         stmt->execute(state, program);
 
@@ -185,7 +191,7 @@ void RunStatement::execute(EvalState &state, Program &program) {
             state.clearCurrentLine();
         } else {
             // Move to next line
-            currentLine = program.getNextLineNumber(currentLine);
+            currentLine = nextLine;
         }
 
         // Check for END statement
